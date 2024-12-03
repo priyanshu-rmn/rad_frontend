@@ -1,4 +1,4 @@
-import { Tab, Tabs } from '@mui/material';
+import { Tab, Tabs } from "@mui/material";
 
 export default function Sidebar({
   selected,
@@ -16,13 +16,12 @@ export default function Sidebar({
     <Tabs
       value={selected}
       onChange={handleTabChange}
-      orientation='vertical'
-          variant='scrollable'
-          
+      orientation="vertical"
+      variant="scrollable"
     >
-      <Tab label='Dashboard' />
-      <Tab label='Applications' />
-      <Tab label='Positions' />
+      <Tab label="Dashboard" />
+      <Tab label="Applications" />
+      <Tab label="Positions" />
     </Tabs>
   );
 }
