@@ -8,4 +8,24 @@ export const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true
 });
+
+// Add a request interceptor to include the Bearer token
+api.interceptors.request.use(
+  (config) => {
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem('jwtToken');
+
+    // If a token exists, add it to the Authorization header
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config; // Return the updated config
+  },
+  (error) => {
+    // Handle request errors
+    return Promise.reject(error);
+  }
+);

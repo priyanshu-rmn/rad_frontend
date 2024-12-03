@@ -42,6 +42,7 @@ export default function Home() {
           <Box
             sx={{
               height: "100vh",
+              minWidth: "calc(100vw - 250px)",
               backgroundColor: "whitesmoke",
               overflow: "scroll",
             }}

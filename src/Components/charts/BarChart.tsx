@@ -3,8 +3,12 @@ import HighchartsReact from "highcharts-react-official";
 
 export default function BarChart({ chartData }: { chartData: any }) {
   const options: Highcharts.Options = {
+    chart: {
+      spacing: [25, 25, 25, 25],
+      borderRadius: 15
+    },
     title: {
-      text: "Application Stage",
+      text: "Time to hire",
     },
     plotOptions: {
       series: {

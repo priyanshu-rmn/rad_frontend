@@ -2,8 +2,6 @@ import Highcharts from "highcharts/modules/funnel";
 import HighchartsReact from "highcharts-react-official";
 // import { useRef } from 'react';
 
-//   "candidate_stage_counts":
-
 // The wrapper exports only a default component that at the same time is a
 // namespace for the related Props interface (HighchartsReact.Props) and
 // RefObject interface (HighchartsReact.RefObject). All other interfaces
@@ -15,6 +13,11 @@ export default function FunnelChart(
   // const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
 
   const options: Highcharts.Options = {
+    chart: {
+      height: 500,
+      spacing: [25, 25, 25, 25],
+      borderRadius: 15
+    },
     title: {
       text: "Application Stage",
     },
@@ -27,9 +30,9 @@ export default function FunnelChart(
       },
       funnel: {
         center: ["40%", "50%"],
-        neckWidth: "30%",
+        neckWidth: "20%",
         neckHeight: "25%",
-        width: "80%",
+        width: "75%",
       },
     },
     legend: {

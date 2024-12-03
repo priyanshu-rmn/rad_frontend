@@ -1,10 +1,20 @@
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-export default function PieChart({ chartData }: { chartData: any }) {
+export default function PieChart({
+  title,
+  chartData,
+}: {
+  title: string;
+  chartData: any;
+}) {
   const options: Highcharts.Options = {
+    chart: {
+      spacing: [25, 25, 25, 25],
+      borderRadius: 15
+    },
     title: {
-      text: "Offer Status",
+      text: title,
     },
     plotOptions: {
       series: {

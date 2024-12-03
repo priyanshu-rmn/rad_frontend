@@ -36,7 +36,7 @@ const LoginForm: React.FC = () => {
     event.preventDefault();
     setError(null);
 
-    api.post("/login/", { email, password }).then(
+    api.post("/login/", { username: email, password: password }).then(
       (response) => {
         console.log(response);
         const token = response.data.access_token; // Assuming the backend res contains { access_token: "JWT_TOKEN" }
