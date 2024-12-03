@@ -1,23 +1,16 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Sidebar from "./Sidebar";
-import { Height } from "@mui/icons-material";
+import { Logout } from "@mui/icons-material";
+import { useAuth } from "../context/Auth";
+import { useNavigate } from "react-router-dom";
 
-const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
 
 export default function Navbar({
   selected,
@@ -32,6 +25,13 @@ export default function Navbar({
     console.log(mobileOpen);
     setMobileOpen((prevState) => !prevState);
   };
+  
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  function handleLogout() {
+    logout()
+    navigate("/login/")
+  } 
 
   return (
     <>
@@ -51,14 +51,18 @@ export default function Navbar({
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            Eightfold.ai
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                {item}
-              </Button>
-            ))}
+          <Box>
+            <IconButton
+              color="inherit"
+              aria-label="logout"
+              edge="end"
+              onClick={handleLogout}
+              sx={{ mr: 2 }}
+            >
+              <Logout />
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
@@ -73,13 +77,13 @@ export default function Navbar({
           display: { sm: "block", md: "none", xs: "block" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: drawerWidth,
+            width: "250px",
           },
         }}
       >
         <Box
           sx={{
-            height:" 100vh",
+            height: " 100vh",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",

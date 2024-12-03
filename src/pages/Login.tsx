@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -8,77 +8,80 @@ import {
   Paper,
   InputAdornment,
   IconButton,
-} from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { loginn } from '../utils/axios';
-import { useAuth } from '../context/Auth';
-import { useNavigate } from 'react-router-dom';
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { api } from "../utils/axios";
+import { useAuth } from "../context/Auth";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
 
   // checking for logged in or not
   const { isLoggedIn, login, logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(isLoggedIn);
     if (isLoggedIn) {
+      console.log("logged in");
       navigate("/"); // Redirect to home
     }
   }, [isLoggedIn, navigate]);
-  
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError(null);
 
-    try {
-      const token = await loginn(email, password);
-      console.log('JWT Token:', token);
-      login()
-      alert('Login successful! Token saved.');
-    } catch (err: any) {
-      setError(err.message);
-    }
+    api.post("/login/", { email, password }).then(
+      (response) => {
+        console.log(response);
+        const token = response.data.access_token; // Assuming the backend res contains { access_token: "JWT_TOKEN" }
+        localStorage.setItem("jwtToken", token);
+        login();
+      },
+      (error) => {
+        console.log(error);
+        setError(`Login Failed: ${error?.response?.data?.detail}`);
+      }
+    );
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-
   return (
-    <Container maxWidth='sm'>
+    <Container maxWidth="sm">
       <Paper elevation={3} sx={{ padding: 4, marginTop: 8 }}>
-        <Typography variant='h4' align='center' gutterBottom>
+        <Typography variant="h4" align="center" gutterBottom>
           Login
         </Typography>
         <form onSubmit={handleSubmit}>
-          <Box display='flex' flexDirection='column' gap={3}>
+          <Box display="flex" flexDirection="column" gap={3}>
             <TextField
-              label='Email'
-              variant='outlined'
+              label="Email"
+              variant="outlined"
               fullWidth
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              type='email'
+              type="email"
             />
             <TextField
-              label='Password'
-              variant='outlined'
+              label="Password"
+              variant="outlined"
               fullWidth
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               InputProps={{
                 endAdornment: (
-                  <InputAdornment position='end'>
+                  <InputAdornment position="end">
                     <IconButton onClick={togglePasswordVisibility}>
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
@@ -87,17 +90,17 @@ const LoginForm: React.FC = () => {
               }}
             />
             <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              size='large'
+              type="submit"
+              variant="contained"
+              color="primary"
+              size="large"
               fullWidth
             >
               Login
             </Button>
           </Box>
           {error && (
-            <Typography color='error' align='center' sx={{ marginTop: 2 }}>
+            <Typography color="error" align="center" sx={{ marginTop: 2 }}>
               {error}
             </Typography>
           )}

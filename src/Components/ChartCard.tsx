@@ -1,14 +1,7 @@
 import Grid from "@mui/material/Grid2";
 
-//   "acceptance_rates": {
-//       "accepted": 6,
-//       "declined": 7,
-//       "total": 13
-//   },
-//   "waiting_count": 22,
-//   "no_action_count": 8,
-//   "new_application_count": 1
-// }
+
+
 export default function ChartCard({
   textElement,
   chartElement,

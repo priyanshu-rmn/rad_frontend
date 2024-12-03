@@ -1,10 +1,10 @@
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-export default function BarChart({ chartData }: { chartData: any }) {
+export default function PieChart({ chartData }: { chartData: any }) {
   const options: Highcharts.Options = {
     title: {
-      text: "Application Stage",
+      text: "Offer Status",
     },
     plotOptions: {
       series: {
@@ -25,9 +25,9 @@ export default function BarChart({ chartData }: { chartData: any }) {
     },
     series: [
       {
-        type: "bar",
+        type: "pie",
 
-        name: "Appication count",
+        name: "Count",
         data: chartData,
       },
     ],
