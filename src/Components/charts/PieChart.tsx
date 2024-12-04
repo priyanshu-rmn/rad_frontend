@@ -1,5 +1,7 @@
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import "highcharts/modules/exporting"
+import "highcharts/modules/offline-exporting"
 
 export default function PieChart({
   title,

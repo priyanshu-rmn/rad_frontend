@@ -1,5 +1,8 @@
 import Highcharts from "highcharts/modules/funnel";
 import HighchartsReact from "highcharts-react-official";
+import "highcharts/modules/exporting"
+import "highcharts/modules/funnel"
+import "highcharts/modules/offline-exporting"
 // import { useRef } from 'react';
 
 // The wrapper exports only a default component that at the same time is a
