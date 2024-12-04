@@ -78,7 +78,7 @@ const FilterForm = ({
     <Grid container spacing={2} sx={{ padding: 2 }}>
       {/* Positions Multiselect */}
 
-      <Grid size={{ xs: 12, md: 3 }}>
+      <Grid size={{ xs: 12, md: 6, lg:3 }}>
         <FormControl fullWidth>
           <InputLabel>Positions</InputLabel>
           <Select
@@ -108,7 +108,7 @@ const FilterForm = ({
       </Grid>
 
       {/* Departments Multiselect */}
-      <Grid size={{ xs: 12, md: 3 }}>
+      <Grid size={{ xs: 12, md: 6, lg:3 }}>
         <FormControl fullWidth>
           <InputLabel>Departments</InputLabel>
           <Select
@@ -134,7 +134,7 @@ const FilterForm = ({
         </FormControl>
       </Grid>
 
-      <Grid size={{ xs: 12, md: 4 }}>
+      <Grid size={{ xs: 12, md: 12, lg:4 }}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateRangePicker
             onChange={(newValue) => handleChange("dateRange", newValue)}
@@ -143,7 +143,7 @@ const FilterForm = ({
         </LocalizationProvider>
       </Grid>
       {/* Submit Button */}
-      <Grid size={{ xs: 12, md: 2 }}>
+      <Grid size={{ xs: 12, md: 12, lg:2 }}>
         <Button
           variant="contained"
           color="primary"

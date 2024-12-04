@@ -1,13 +1,4 @@
 import Grid from "@mui/material/Grid2";
-import ChartCard from "../Components/ChartCard";
-import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  Select,
-  Typography,
-} from "@mui/material";
 import {
   Box,
   Button,
@@ -23,6 +14,7 @@ import { useEffect, useState } from "react";
 import { api } from "../utils/axios";
 import FilterForm from "../Components/FilterForm";
 import { Dayjs } from "dayjs";
+import TimeSeriesChart from "../Components/charts/TimeSeries";
 
 const res_data = {
   all_positions: {
@@ -86,31 +78,156 @@ const res_data = {
     NEW_APPLICANTS: 1,
   },
   application_per_job_posting: {
-    "Agricultural engineer": 4,
-    "Colour technologist": 4,
-    "Community pharmacist": 5,
-    "Dentist": 5,
-    "Education officer, environmental": 3,
-    "Engineer, broadcasting (operations)": 3,
-    "Engineer, petroleum": 12,
-    "Forensic scientist": 3,
-    "Geographical information systems officer": 2,
-    "Geologist, engineering": 3,
-    "Hospital pharmacist": 4,
-    "Journalist, broadcasting": 2,
-    "Journalist, newspaper": 4,
-    "Landscape architect": 5,
-    "Librarian, academic": 8,
-    "Management consultant": 4,
-    "Patent attorney": 3,
-    "Printmaker": 4,
-    "Psychiatric nurse": 3,
-    "Systems developer": 5,
-    "Tax inspector": 9,
-    "Water quality scientist": 5
-  }
+    "Agricultural engineer": {
+      "2024-01-28": 3,
+      "2024-02-11": 7,
+      "2024-07-29": 4,
+      "2024-08-27": 9,
+    },
+    "Colour technologist": {
+      "2024-02-24": 2,
+      "2024-04-19": 5,
+      "2024-05-16": 1,
+      "2024-10-13": 8,
+    },
+    "Community pharmacist": {
+      "2024-01-08": 4,
+      "2024-05-12": 9,
+      "2024-05-19": 6,
+      "2024-05-20": 8,
+      "2024-11-27": 3,
+    },
+    Dentist: {
+      "2024-01-02": 6,
+      "2024-02-25": 5,
+      "2024-07-03": 2,
+      "2024-07-12": 7,
+      "2024-11-23": 4,
+    },
+    "Education officer, environmental": {
+      "2024-06-01": 6,
+      "2024-08-07": 3,
+      "2024-08-30": 7,
+    },
+    "Engineer, broadcasting (operations)": {
+      "2024-01-04": 2,
+      "2024-01-06": 9,
+      "2024-07-10": 5,
+    },
+    "Engineer, petroleum": {
+      "2024-02-09": 4,
+      "2024-02-26": 8,
+      "2024-02-28": 6,
+      "2024-05-07": 9,
+      "2024-05-16": 3,
+      "2024-05-18": 7,
+      "2024-05-29": 2,
+      "2024-07-10": 1,
+      "2024-07-20": 8,
+      "2024-07-28": 4,
+      "2024-11-10": 9,
+    },
+    "Forensic scientist": {
+      "2024-01-07": 3,
+      "2024-04-21": 5,
+      "2024-10-19": 2,
+    },
+    "Geographical information systems officer": {
+      "2024-04-19": 7,
+      "2024-11-11": 1,
+    },
+    "Geologist, engineering": {
+      "2024-02-08": 6,
+      "2024-05-09": 8,
+      "2024-09-20": 3,
+    },
+    "Hospital pharmacist": {
+      "2024-04-04": 9,
+      "2024-04-25": 5,
+      "2024-08-26": 2,
+      "2024-09-07": 7,
+    },
+    "Journalist, broadcasting": {
+      "2024-01-22": 8,
+      "2024-02-09": 6,
+    },
+    "Journalist, newspaper": {
+      "2024-01-27": 4,
+      "2024-07-19": 2,
+      "2024-08-18": 9,
+      "2024-10-04": 7,
+    },
+    "Landscape architect": {
+      "2024-03-15": 3,
+      "2024-04-19": 5,
+      "2024-04-20": 7,
+      "2024-07-18": 2,
+      "2024-09-28": 9,
+    },
+    "Librarian, academic": {
+      "2024-01-16": 5,
+      "2024-02-17": 3,
+      "2024-03-22": 6,
+      "2024-04-29": 8,
+      "2024-05-23": 4,
+      "2024-10-12": 2,
+      "2024-10-23": 7,
+      "2024-10-26": 1,
+    },
+    "Management consultant": {
+      "2024-03-17": 5,
+      "2024-04-05": 6,
+      "2024-05-16": 2,
+      "2024-08-04": 9,
+    },
+    "Patent attorney": {
+      "2024-05-02": 8,
+      "2024-09-02": 5,
+      "2024-10-27": 7,
+    },
+    Printmaker: {
+      "2024-02-09": 2,
+      "2024-08-10": 4,
+      "2024-09-03": 6,
+      "2024-09-04": 8,
+    },
+    "Psychiatric nurse": {
+      "2024-03-01": 5,
+      "2024-05-07": 3,
+      "2024-10-04": 9,
+    },
+    "Systems developer": {
+      "2024-02-15": 7,
+      "2024-06-22": 4,
+      "2024-07-25": 8,
+      "2024-10-03": 6,
+      "2024-11-19": 3,
+    },
+    "Tax inspector": {
+      "2024-05-21": 3,
+      "2024-05-22": 6,
+      "2024-06-09": 7,
+      "2024-06-21": 9,
+      "2024-06-27": 8,
+      "2024-08-28": 2,
+      "2024-09-05": 4,
+      "2024-10-26": 1,
+      "2024-10-27": 5,
+    },
+    "Water quality scientist": {
+      "2024-01-28": 7,
+      "2024-02-13": 3,
+      "2024-03-13": 9,
+      "2024-11-07": 2,
+      "2024-11-08": 8,
+    },
+  },
 };
-
+// Function to convert object to array of 2-value pairs
+export const convertToArray = (obj: any) => {
+  console.log(obj);
+  return Object.entries(obj).map(([key, value]) => [key, value]);
+};
 export type dataType = {
   all_positions: { [key: string]: string };
   all_departments: string[];
@@ -118,11 +235,7 @@ export type dataType = {
   depts_time_to_hire: { [key: string]: number };
   offer_status: { [key: string]: number };
   application_status_count: { [key: string]: number };
-};
-export type formDataType = {
-  positions: string[];
-  departments: string[];
-  dateRange: [Dayjs | null, Dayjs | null];
+  application_per_job_posting: { [key: string]: { [key: string]: number } };
 };
 export type formDataType = {
   positions: string[];
@@ -138,8 +251,8 @@ export default function Dashboard() {
     depts_time_to_hire: {},
     offer_status: {},
     application_status_count: {},
+    application_per_job_posting: {},
   }); // State to store fetched data
-  const [error, setError] = useState<string | null>(null); // State to store any error
   const [error, setError] = useState<string | null>(null); // State to store any error
   const [loading, setLoading] = useState(true); // State to indicate loading
 
@@ -148,18 +261,6 @@ export default function Dashboard() {
     departments: [],
     dateRange: [null, null],
   });
-
-  const [formData, setFormData] = useState<formDataType>({
-    positions: [],
-    departments: [],
-    dateRange: [null, null],
-  });
-
-  // Function to convert object to array of 2-value pairs
-  const convertToArray = (obj: any) => {
-    console.log(obj);
-    return Object.entries(obj).map(([key, value]) => [key, value]);
-  };
 
   const fetchData = () => {
     api
@@ -216,36 +317,28 @@ export default function Dashboard() {
 
         {!(loading || error) && (
           <>
-            <Grid size={{ md: 6, sm: 12, xs: 12 }}>
-              <PieChart
-                title="Offers Status"
-                chartData={convertToArray(data.offer_status)}
-              />
+            <Grid size={{ lg: 6, md: 6, sm: 12, xs: 12 }}>
               <PieChart
                 title="Offers Status"
                 chartData={convertToArray(data.offer_status)}
               />
             </Grid>
-            <Grid size={{ md: 6, sm: 12, xs: 12 }}>
-              <PieChart
-                title="Application Status"
-                chartData={convertToArray(data.application_status_count)}
-              />
+            <Grid size={{ lg: 6, md: 6, sm: 12, xs: 12 }}>
               <PieChart
                 title="Application Status"
                 chartData={convertToArray(data.application_status_count)}
               />
             </Grid>
-            <Grid size={{ md: 6, sm: 12, xs: 12 }}>
+            <Grid size={{ lg: 6, md: 12, sm: 12, xs: 12 }}>
               <BarChart chartData={convertToArray(data.depts_time_to_hire)} />
             </Grid>
-            <Grid size={{ md: 6, sm: 12, xs: 12 }}>
+            <Grid size={{ lg: 6, md: 12, sm: 12, xs: 12 }}>
               <FunnelChart
                 chartData={convertToArray(data.candidate_stage_counts)}
               />
-              <FunnelChart
-                chartData={convertToArray(data.candidate_stage_counts)}
-              />
+            </Grid>
+            <Grid size={{ md: 12, sm: 12, xs: 12 }}>
+              <TimeSeriesChart chartData={data.application_per_job_posting} />
             </Grid>
             {/* <Grid size={12}>
               <ChartCard

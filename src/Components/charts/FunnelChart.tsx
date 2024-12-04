@@ -17,7 +17,7 @@ export default function FunnelChart(
 
   const options: Highcharts.Options = {
     chart: {
-      height: 500,
+      height: 400,
       spacing: [25, 25, 25, 25],
       borderRadius: 15
     },
