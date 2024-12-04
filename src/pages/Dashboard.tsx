@@ -8,6 +8,14 @@ import {
   Select,
   Typography,
 } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  Typography,
+} from "@mui/material";
 import FunnelChart from "../Components/charts/FunnelChart";
 import BarChart from "../Components/charts/BarChart";
 import PieChart from "../Components/charts/PieChart";
@@ -116,6 +124,11 @@ export type formDataType = {
   departments: string[];
   dateRange: [Dayjs | null, Dayjs | null];
 };
+export type formDataType = {
+  positions: string[];
+  departments: string[];
+  dateRange: [Dayjs | null, Dayjs | null];
+};
 
 export default function Dashboard() {
   const [data, setData] = useState<dataType>({
@@ -127,7 +140,14 @@ export default function Dashboard() {
     application_status_count: {},
   }); // State to store fetched data
   const [error, setError] = useState<string | null>(null); // State to store any error
+  const [error, setError] = useState<string | null>(null); // State to store any error
   const [loading, setLoading] = useState(true); // State to indicate loading
+
+  const [formData, setFormData] = useState<formDataType>({
+    positions: [],
+    departments: [],
+    dateRange: [null, null],
+  });
 
   const [formData, setFormData] = useState<formDataType>({
     positions: [],
@@ -151,6 +171,7 @@ export default function Dashboard() {
       })
       .catch((err) => {
         console.error("Error fetching data:", err); // Log error
+        setError(`${err?.response?.detail || err?.code} `); // Set error state
         setError(`${err?.response?.detail || err?.code} `); // Set error state
         setLoading(false); // Turn off loading
       });
@@ -200,8 +221,16 @@ export default function Dashboard() {
                 title="Offers Status"
                 chartData={convertToArray(data.offer_status)}
               />
+              <PieChart
+                title="Offers Status"
+                chartData={convertToArray(data.offer_status)}
+              />
             </Grid>
             <Grid size={{ md: 6, sm: 12, xs: 12 }}>
+              <PieChart
+                title="Application Status"
+                chartData={convertToArray(data.application_status_count)}
+              />
               <PieChart
                 title="Application Status"
                 chartData={convertToArray(data.application_status_count)}
@@ -211,6 +240,9 @@ export default function Dashboard() {
               <BarChart chartData={convertToArray(data.depts_time_to_hire)} />
             </Grid>
             <Grid size={{ md: 6, sm: 12, xs: 12 }}>
+              <FunnelChart
+                chartData={convertToArray(data.candidate_stage_counts)}
+              />
               <FunnelChart
                 chartData={convertToArray(data.candidate_stage_counts)}
               />
