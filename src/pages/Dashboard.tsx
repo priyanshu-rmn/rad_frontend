@@ -77,6 +77,30 @@ const res_data = {
     NO_ACTION: 8,
     NEW_APPLICANTS: 1,
   },
+  application_per_job_posting: {
+    "Agricultural engineer": 4,
+    "Colour technologist": 4,
+    "Community pharmacist": 5,
+    "Dentist": 5,
+    "Education officer, environmental": 3,
+    "Engineer, broadcasting (operations)": 3,
+    "Engineer, petroleum": 12,
+    "Forensic scientist": 3,
+    "Geographical information systems officer": 2,
+    "Geologist, engineering": 3,
+    "Hospital pharmacist": 4,
+    "Journalist, broadcasting": 2,
+    "Journalist, newspaper": 4,
+    "Landscape architect": 5,
+    "Librarian, academic": 8,
+    "Management consultant": 4,
+    "Patent attorney": 3,
+    "Printmaker": 4,
+    "Psychiatric nurse": 3,
+    "Systems developer": 5,
+    "Tax inspector": 9,
+    "Water quality scientist": 5
+  }
 };
 
 export type dataType = {
